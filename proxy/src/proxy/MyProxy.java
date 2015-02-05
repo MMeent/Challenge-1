@@ -19,24 +19,24 @@ public class MyProxy extends PrivacyProxy {
 
         // print all the request headers 
         for (String header : requestHeaders.keySet()) {
-            if(header.contains("User-Agent")) {
+            log("  REQ: " + header + ": " + requestHeaders.get(header));
+
+            if (header.contains("User-Agent")) {
                 requestHeaders.put(header, "None of your bussiness");
-            } else if (header.contains("Accept-Datatime")) {
+            } /* else if (header.contains("Accept-Datatime")) {
                 requestHeaders.remove(header);
-            } else if (header.equals("TE")) {
-                requestHeaders.remove(header);
-            //} else if (header.equals("Referer")) {
+            //} else if (header.equals("TE")) {
             //    requestHeaders.remove(header);
+            //} else if (header.equals("Referer")) {
+                requestHeaders.remove(header);
             } else if (header.contains("Proxy")) {
                 requestHeaders.remove(header);
-            //} else if (header.contains("Cache")) {
-            //    requestHeaders.remove(header);
+            } else if (header.contains("Cache")) {
+                requestHeaders.remove(header);
             } else if (header.contains("Origin")) {
                 requestHeaders.remove(header);
             }
-            
-            
-            log("  REQ: " + header + ": " + requestHeaders.get(header));
+            log(" .REQ: " + header + ": " + requestHeaders.get(header));*/
         }
         
         return requestHeaders;
@@ -55,7 +55,7 @@ public class MyProxy extends PrivacyProxy {
 
         for (String header : responseHeaders.keySet()) {
             log("  RSP: " + header + ": " + responseHeaders.get(header));
-
+            
             if (header.equals("Content-Type") && responseHeaders.get("Content-Type").startsWith("text/html")) {
                //String s = new String(originalBytes);
                //String s2 = s.replaceAll("Nieuws", "Nieuws!");
