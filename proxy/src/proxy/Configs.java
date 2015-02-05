@@ -1,5 +1,7 @@
 package proxy;
 
+import jdk.nashorn.internal.runtime.regexp.joni.Regex;
+
 import java.util.*;
 
 /**
@@ -17,7 +19,7 @@ public class Configs {
     public static void registerValues(){
         BLOCKED_ADRESSES.add("www.googletagmanager.com");
         BLOCKED_ADRESSES.add("shackle.nl");
-        
+
         BLOCKED_HEADERS.add("Referer");
         BLOCKED_HEADERS.add("Proxy-Authorization");
         BLOCKED_HEADERS.add("Pragma");
@@ -26,12 +28,14 @@ public class Configs {
         BLOCKED_HEADERS.add("TE");
         BLOCKED_HEADERS.add("Upgrade");
         BLOCKED_HEADERS.add("Via");
-        
+
         ALTER_HEADERS.put("Accept-Encoding", "identity");
         ALTER_HEADERS.put("User-Agent", "Bunjalloo/0.7.6(Nintendo DS;U;en)");
         ALTER_HEADERS.put("DNT", "1");
-        
-        CONTENT_REGEXES.put("[= ](navigator.*?)[ =]", " \" + \" ");
-        CONTENT_REGEXES.put("[= ](\\.innerHTML)[ =]", " ");
+
+        CONTENT_REGEXES.put(" navigator.*? ", " \" + \" ");
+        CONTENT_REGEXES.put("\\.innerHTML", " ");
+        CONTENT_REGEXES.put("document\\.cookie", "document.domain");
+        CONTENT_REGEXES.put("iframe(?:.*? )src=[\"'].*?[\"']", "iframe src=\"\"");
     }
 }
