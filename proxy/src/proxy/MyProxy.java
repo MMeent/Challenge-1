@@ -16,15 +16,13 @@ public class MyProxy extends PrivacyProxy {
     //////////////////////////////////////////////////////////////////////////
 
     protected HashMap<String, String> onRequest(HashMap<String, String> requestHeaders){
-        requestHeaders.put("User-Agent", "None of your business");
-        requestHeaders.remove("Accept-Datetime");
-        requestHeaders.remove("Authorization");
-        requestHeaders.remove("Cache-Control");
-        requestHeaders.remove("");
-        
-        switch (requestHeaders.get("Host")) {
-            case "www.googletagmanager.com": return null;
+        requestHeaders.put("User-Agent", "Bunjalloo/0.7.6(Nintendo DS;U;en)");
+
+        for (String s: Configs.BLOCKED_HEADERS) {
+            requestHeaders.remove(s);
         }
+
+        if(Configs.BLOCKED_ADRESSES.contains(requestHeaders.get("Host"))) return null;
         
         // print all the request headers 
         for (String header : requestHeaders.keySet()) {
