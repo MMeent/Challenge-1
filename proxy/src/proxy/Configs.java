@@ -25,13 +25,13 @@ public class Configs {
         BLOCKED_HEADERS.add("Pragma");
         BLOCKED_HEADERS.add("Origin");
         BLOCKED_HEADERS.add("Cookie");
-        BLOCKED_HEADERS.add("TE");
         BLOCKED_HEADERS.add("Upgrade");
         BLOCKED_HEADERS.add("Via");
 
         ALTER_HEADERS.put("Accept-Encoding", "identity");
         ALTER_HEADERS.put("User-Agent", "Bunjalloo/0.7.6(Nintendo DS;U;en)");
         ALTER_HEADERS.put("DNT", "1");
+        ALTER_HEADERS.put("TE", "identity");
 
         CONTENT_REGEXES.put(" navigator.*? ", " \" + \" ");
         CONTENT_REGEXES.put("\\.innerHTML", " ");
