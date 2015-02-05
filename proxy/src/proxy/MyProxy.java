@@ -21,14 +21,29 @@ public class MyProxy extends PrivacyProxy {
         for (String header : requestHeaders.keySet()) {
             if(header.contains("User-Agent")) {
                 requestHeaders.put(header, "None of your bussiness");
+            } else if (header.contains("Accept-Datatime")) {
+                requestHeaders.remove(header);
+            } else if (header.equals("TE")) {
+                requestHeaders.remove(header);
+            //} else if (header.equals("Referer")) {
+            //    requestHeaders.remove(header);
+            } else if (header.contains("Proxy")) {
+                requestHeaders.remove(header);
+            //} else if (header.contains("Cache")) {
+            //    requestHeaders.remove(header);
+            } else if (header.contains("Origin")) {
+                requestHeaders.remove(header);
             }
+            
+            
             log("  REQ: " + header + ": " + requestHeaders.get(header));
         }
-
+        
+        return requestHeaders;
 
         // return the (manipulated) headers, or
         // alternatively, drop this request by returning null
-        return requestHeaders;
+        // return null;
     }
 
 

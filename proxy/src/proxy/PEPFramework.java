@@ -51,7 +51,7 @@ public class PEPFramework {
         }
 
         while (listening) {
-            //new PrivacyProxy(serverSocket.accept(), autoFlush).start();
+            //new proxy.PrivacyProxy(serverSocket.accept(), autoFlush).start();
             new MyProxy(serverSocket.accept(), autoFlush).start();
         }
         serverSocket.close();
