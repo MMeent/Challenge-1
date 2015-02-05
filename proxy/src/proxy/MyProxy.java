@@ -17,7 +17,15 @@ public class MyProxy extends PrivacyProxy {
 
     protected HashMap<String, String> onRequest(HashMap<String, String> requestHeaders){
         requestHeaders.put("User-Agent", "None of your business");
+        requestHeaders.remove("Accept-Datetime");
+        requestHeaders.remove("Authorization");
+        requestHeaders.remove("Cache-Control");
         requestHeaders.remove("");
+        
+        switch (requestHeaders.get("Host")) {
+            case "www.googletagmanager.com": return null;
+        }
+        
         // print all the request headers 
         for (String header : requestHeaders.keySet()) {
             log("  REQ: " + header + ": " + requestHeaders.get(header));
@@ -39,6 +47,9 @@ public class MyProxy extends PrivacyProxy {
 
         for (String header : responseHeaders.keySet()) {
             log("  RSP: " + header + ": " + responseHeaders.get(header));
+            if (header.contains("zip")) {
+                responseHeaders.remove(header);
+            }
             
             if (header.equals("Content-Type") && responseHeaders.get("Content-Type").startsWith("text/html")) {
                //String s = new String(originalBytes);
