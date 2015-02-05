@@ -12,7 +12,7 @@ public class Configs {
     
     public static HashMap<String, String> ALTER_HEADERS = new HashMap<String, String>();
     
-    public static List<String> REMOVE_CONTENT_REGEXES = new ArrayList<String>();
+    public static Map<String, String> CONTENT_REGEXES = new HashMap<String, String>();
     
     public static void registerValues(){
         BLOCKED_ADRESSES.add("www.googletagmanager.com");
@@ -29,5 +29,9 @@ public class Configs {
         
         ALTER_HEADERS.put("Accept-Encoding", "identity");
         ALTER_HEADERS.put("User-Agent", "Bunjalloo/0.7.6(Nintendo DS;U;en)");
+        ALTER_HEADERS.put("DNT", "1");
+        
+        CONTENT_REGEXES.put("[= ](navigator.*?)[ =]", " \" + \" ");
+        CONTENT_REGEXES.put("[= ](\\.innerHTML)[ =]", " ");
     }
 }

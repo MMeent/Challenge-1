@@ -46,9 +46,6 @@ public class MyProxy extends PrivacyProxy {
 
         for (String header : responseHeaders.keySet()) {
             log("  RSP: " + header + ": " + responseHeaders.get(header));
-            if (header.contains("zip")) {
-                responseHeaders.remove(header);
-            }
             
             if (header.equals("Content-Type") && responseHeaders.get("Content-Type").startsWith("text/html")) {
                //String s = new String(originalBytes);
@@ -58,7 +55,12 @@ public class MyProxy extends PrivacyProxy {
         }
         
         String content = new String(originalBytes);
-
+        
+        for (String s: Configs.CONTENT_REGEXES.keySet()) {
+            log(s);
+            content = content.replaceAll(s, Configs.CONTENT_REGEXES.get(s));
+        }
+        
         byte[] alteredBytes = content.getBytes();
 
         // alter the original response and return it
