@@ -16,10 +16,12 @@ public class MyProxy extends PrivacyProxy {
     //////////////////////////////////////////////////////////////////////////
 
     protected HashMap<String, String> onRequest(HashMap<String, String> requestHeaders){
-        requestHeaders.put("User-Agent", "Bunjalloo/0.7.6(Nintendo DS;U;en)");
-
         for (String s: Configs.BLOCKED_HEADERS) {
             requestHeaders.remove(s);
+        }
+        
+        for (String s: Configs.ALTER_HEADERS.keySet()) {
+            requestHeaders.put(s, Configs.ALTER_HEADERS.get(s));
         }
 
         if(Configs.BLOCKED_ADRESSES.contains(requestHeaders.get("Host"))) return null;
@@ -40,7 +42,6 @@ public class MyProxy extends PrivacyProxy {
     // The number of valid bytes in the buffer is expressed by the inOctets instance variable
     // e.g. log("I received " + this.inOctets + " bytes");
     protected byte[] onResponse(byte[] originalBytes){
-        byte[] alteredBytes = originalBytes;
         log("I received " + this.inOctets + " bytes");
 
         for (String header : responseHeaders.keySet()) {
@@ -54,8 +55,11 @@ public class MyProxy extends PrivacyProxy {
                //String s2 = s.replaceAll("Nieuws", "Nieuws!");
                //alteredBytes = s2.getBytes();
             }
-
         }
+        
+        String content = new String(originalBytes);
+
+        byte[] alteredBytes = content.getBytes();
 
         // alter the original response and return it
         

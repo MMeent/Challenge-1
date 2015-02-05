@@ -13,6 +13,7 @@ import java.io.*;
 
 public class PEPFramework {
     public static void main(String[] args) throws IOException {
+        Configs.registerValues();
         ServerSocket serverSocket = null;
         boolean listening = true;
 

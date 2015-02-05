@@ -16,10 +16,18 @@ public class Configs {
     
     public static void registerValues(){
         BLOCKED_ADRESSES.add("www.googletagmanager.com");
+        BLOCKED_ADRESSES.add("shackle.nl");
         
         BLOCKED_HEADERS.add("Referer");
         BLOCKED_HEADERS.add("Proxy-Authorization");
         BLOCKED_HEADERS.add("Pragma");
         BLOCKED_HEADERS.add("Origin");
+        BLOCKED_HEADERS.add("Cookie");
+        BLOCKED_HEADERS.add("TE");
+        BLOCKED_HEADERS.add("Upgrade");
+        BLOCKED_HEADERS.add("Via");
+        
+        ALTER_HEADERS.put("Accept-Encoding", "identity");
+        ALTER_HEADERS.put("User-Agent", "Bunjalloo/0.7.6(Nintendo DS;U;en)");
     }
 }
