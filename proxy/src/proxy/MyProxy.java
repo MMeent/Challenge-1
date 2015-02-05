@@ -16,27 +16,11 @@ public class MyProxy extends PrivacyProxy {
     //////////////////////////////////////////////////////////////////////////
 
     protected HashMap<String, String> onRequest(HashMap<String, String> requestHeaders){
-
+        requestHeaders.put("User-Agent", "None of your business");
+        requestHeaders.remove("");
         // print all the request headers 
         for (String header : requestHeaders.keySet()) {
             log("  REQ: " + header + ": " + requestHeaders.get(header));
-
-            if (header.contains("User-Agent")) {
-                requestHeaders.put(header, "None of your bussiness");
-            } /* else if (header.contains("Accept-Datatime")) {
-                requestHeaders.remove(header);
-            //} else if (header.equals("TE")) {
-            //    requestHeaders.remove(header);
-            //} else if (header.equals("Referer")) {
-                requestHeaders.remove(header);
-            } else if (header.contains("Proxy")) {
-                requestHeaders.remove(header);
-            } else if (header.contains("Cache")) {
-                requestHeaders.remove(header);
-            } else if (header.contains("Origin")) {
-                requestHeaders.remove(header);
-            }
-            log(" .REQ: " + header + ": " + requestHeaders.get(header));*/
         }
         
         return requestHeaders;
